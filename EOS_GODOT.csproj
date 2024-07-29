@@ -1,8 +1,45 @@
-<Project Sdk="Godot.NET.Sdk/4.3.0-dev.6">
+﻿<Project Sdk="Godot.NET.Sdk/4.3.0-dev.6">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
-    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="eos_sdk\**" />
+    <EmbeddedResource Remove="eos_sdk\**" />
+  </ItemGroup>
+	<!-- This requires to work with custom Constants Export. -->
+	<PropertyGroup>
+		<GodotExportConstants>GODOT_EXPORT</GodotExportConstants>
+		<DefineConstants>$(GodotExportConstants);$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+	<!-- This here because we want to include the exact DLL into our path -->
+	<ItemGroup>
+	  <Content Include="libraries/EOSSDK-Win32-Shipping.dll" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(DefineConstants), '^(.*;)*EOS_PLATFORM_WINDOWS_32(;.*)*$'))">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<TargetPath>EOSSDK-Win32-Shipping.dll</TargetPath>
+	  </Content>
+	  <Content Include="libraries/EOSSDK-Win64-Shipping.dll" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(DefineConstants), '^(.*;)*EOS_PLATFORM_WINDOWS_64(;.*)*$'))">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<TargetPath>EOSSDK-Win64-Shipping.dll</TargetPath>
+	  </Content>
+	  <Content Include="libraries/libEOSSDK-Linux-Shipping.so" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(DefineConstants), '^(.*;)*EOS_PLATFORM_LINUX(;.*)*$'))">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<TargetPath>libEOSSDK-Linux-Shipping.so</TargetPath>
+	  </Content>
+	  <Content Include="libraries/libEOSSDK-Mac-Shipping.dylib" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(DefineConstants), '^(.*;)*EOS_PLATFORM_OSX(;.*)*$'))">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<TargetPath>libEOSSDK-Mac-Shipping.dylib</TargetPath>
+	  </Content>
+		<!-- This here because we can see the dll in VS (if you remove it still works.) -->
+		<None Include="libraries/EOSSDK-Win32-Shipping.dll" />
+		<None Include="libraries/EOSSDK-Win64-Shipping.dll" />
+		<None Include="libraries/libEOSSDK-Linux-Shipping.so" />
+		<None Include="libraries/libEOSSDK-Mac-Shipping.dylib" />
+	</ItemGroup>
+	<ItemGroup>
+		<!-- A way to parse our constants to eos_sdk. -->
+		<ProjectReference Include="eos_sdk\eos_sdk.csproj">
+			<Properties>DefineConstants=$(GodotExportConstants)</Properties>
+		</ProjectReference>
+	</ItemGroup>
 </Project>

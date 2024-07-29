@@ -5,3 +5,10 @@ android/
 eos_sdk/Core
 eos_sdk/Generated
 eos_sdk/Overrides
+[Bb]in
+[Oo]bj
+EXPORT/
+eos_settings.test.ini
+libraries/*
+!libraries/.gdignore
+!libraries/readme.txt

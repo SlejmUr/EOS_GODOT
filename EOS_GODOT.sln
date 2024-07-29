@@ -1,12 +1,18 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EOS_GODOT", "EOS_GODOT.csproj", "{738D7495-A4A1-4D79-89F7-C0E3D8818519}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EOS_GODOT", "EOS_GODOT.csproj", "{738D7495-A4A1-4D79-89F7-C0E3D8818519}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eos_sdk", "eos_sdk\eos_sdk.csproj", "{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	Debug|Any CPU = Debug|Any CPU
-	ExportDebug|Any CPU = ExportDebug|Any CPU
-	ExportRelease|Any CPU = ExportRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{738D7495-A4A1-4D79-89F7-C0E3D8818519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -15,5 +21,18 @@ Global
 		{738D7495-A4A1-4D79-89F7-C0E3D8818519}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{738D7495-A4A1-4D79-89F7-C0E3D8818519}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{738D7495-A4A1-4D79-89F7-C0E3D8818519}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{738D7495-A4A1-4D79-89F7-C0E3D8818519}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{738D7495-A4A1-4D79-89F7-C0E3D8818519}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFA19D0-34FC-42B1-BAF2-5D22FFF37124}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
