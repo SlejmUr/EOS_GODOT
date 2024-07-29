@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+.godot/
+.vs/
+android/
+eos_sdk/Core
+eos_sdk/Generated
+eos_sdk/Overrides
