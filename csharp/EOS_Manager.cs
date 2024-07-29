@@ -39,6 +39,7 @@ public partial class EOS_Manager : Node
                 GD.Print($"{message.Category} {message.Level.ToString()} {message.Message}");
 
             });
+            Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "Cache"));
             Options options = new()
             {
                 CacheDirectory = Path.Combine(Directory.GetCurrentDirectory(),"Cache"),
@@ -52,7 +53,7 @@ public partial class EOS_Manager : Node
                     ClientId = INI.Read("EOS_Platform", "ClientId"),
                     ClientSecret = INI.Read("EOS_Platform", "ClientSecret"),
                 },
-                Flags = PlatformFlags.None,
+                Flags = PlatformFlags.DisableOverlay,
             };
             Platform = PlatformInterface.Create(ref options);
             GD.Print("Successfully made platform!");
@@ -81,6 +82,7 @@ public partial class EOS_Manager : Node
     {
         if (Platform != null)
             Platform.Release();
+        Platform = null;
         PlatformInterface.Shutdown();
         Instance = null;
     }

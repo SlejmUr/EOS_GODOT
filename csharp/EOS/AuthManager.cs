@@ -12,14 +12,24 @@ public class AuthManager
     }
 
     AuthInterface Auth;
-    public EpicAccountId LocaLAccountId = null;
-    public EpicAccountId AccountId = null;
+    public EpicAccountId LocalAccountId { get; internal set; } = null;
+    public EpicAccountId AccountId { get; internal set; } = null;
     public bool IsLoggedIn { get; internal set; }
-    public void LoginDEV(string token, Action<LoginCallbackInfo> action, int port = 6666, object clientData = null)
+
+    /// <summary>
+    /// Use it when login into the DEV account.
+    /// </summary>
+    /// <param name="token">Dev credentials</param>
+    /// <param name="action">a callback that is fired when the operation completes</param>
+    /// <param name="id">Dev host</param>
+    /// <param name="clientData">arbitrary data that is passed back to you in the action</param>
+    public void LoginDEV(string token, Action<LoginCallbackInfo> action, string id = "locahost:6666", object clientData = null)
     {
+        if (IsLoggedIn)
+            return;
         Login(new Credentials()
         {
-            Id = $"localhost:{port}",
+            Id = id,
             Token = token,
             Type = LoginCredentialType.Developer
         },
@@ -27,13 +37,15 @@ public class AuthManager
     }
 
     /// <summary>
-    /// Use this when starting 
+    /// Use this when starting from EGS Launcher (get parameters and get the excahnge code)
     /// </summary>
-    /// <param name="code"></param>
-    /// <param name="action"></param>
-    /// <param name="clientData"></param>
+    /// <param name="code">The exchange code</param>
+    /// <param name="action">a callback that is fired when the operation completes</param>
+    /// <param name="clientData">arbitrary data that is passed back to you in the action</param>
     public void LoginCode(string code, Action<LoginCallbackInfo> action, object clientData = null)
     {
+        if (IsLoggedIn)
+            return;
         Login(new Credentials()
         {
             Token = code,
@@ -54,9 +66,33 @@ public class AuthManager
         {
             if (data.ResultCode == Result.Success)
             {
-                LocaLAccountId = data.LocalUserId;
+                LocalAccountId = data.LocalUserId;
                 AccountId = data.SelectedAccountId;
                 IsLoggedIn = true;
+            }
+            action(data);
+        });
+    }
+
+
+    public void LogOut(Action<LogoutCallbackInfo> action, object clientData = null)
+    {
+        if (!IsLoggedIn)
+            return;
+        LogoutOptions logoutOptions = new()
+        { 
+            LocalUserId = LocalAccountId,
+        };
+        Auth.Logout(ref logoutOptions, clientData, (ref LogoutCallbackInfo data) =>
+        {
+            if (data.ResultCode == Result.Success)
+            {
+                if (LocalAccountId == data.LocalUserId)
+                {
+                    LocalAccountId = null;
+                }
+                AccountId = null;
+                IsLoggedIn = false;
             }
             action(data);
         });
